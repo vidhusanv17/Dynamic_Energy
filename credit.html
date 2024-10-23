@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash to Ethereum Converter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00698f;
+            margin-bottom: 20px;
+        }
+
+        #converter-form {
+            margin: 20px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #00698f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #004f6d;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00698f;
+        }
+
+        #confirm-button {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cash to Ethereum Converter</h1>
+
+    <form id="converter-form">
+        <label for="cash-amount">Enter Cash Amount (in INR):</label>
+        <input type="text" id="cash-amount" name="cash-amount" required>
+
+        <label for="payment-method">Select Payment Method:</label>
+        <select id="payment-method" name="payment-method" required>
+            <option value="">--Select Payment Method--</option>
+            <option value="upi">UPI</option>
+            <option value="netbanking">Net Banking</option>
+            <option value="creditcard">Credit Card</option>
+            <option value="debitcard">Debit Card</option>
+        </select>
+
+        <button type="submit">Convert to Ethereum</button>
+    </form>
+    
+    <div id="result"></div>
+    <button id="confirm-button" onclick="window.location.href='https://razorpay.com/demo/?utm_source=bing&utm_medium=cpc&utm_campaign=&utm_adgroup=&utm_content=RPSME-Brand-050724&utm_term=razorpay&utm_gclid=&utm_campaignID=580151510&utm_adgroupID=1260041977203200&utm_adID=&utm_network=o&utm_device=c&msclkid=3f3eb79461981334a522d086459ec808'">
+        Proceed to Payment
+    </button> <script>
+        let conversionRate = 0;
+
+        // Function to fetch the conversion rate dynamically
+        async function fetchConversionRate() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr');
+                const data = await response.json();
+                conversionRate = data.ethereum.inr;
+            } catch (error) {
+                conversionRate=231875;
+            }
+        }
+
+        // Fetch the conversion rate on page load
+        fetchConversionRate();
+
+        // Add event listener to the submit button
+        document.getElementById('converter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get the cash amount and payment method entered by the user
+            const cashAmount = parseFloat(document.getElementById('cash-amount').value);
+            const paymentMethod = document.getElementById('payment-method').value;
+
+            // Check if cash amount is valid
+            if (isNaN(cashAmount) || cashAmount <= 0) {
+                alert('Please enter a valid cash amount.');
+                return;
+            }
+
+            // Check if a payment method is selected
+            if (paymentMethod === "") {
+                alert('Please select a payment method.');
+                return;
+            }
+
+            // Calculate the Ethereum equivalent
+            const ethAmount = cashAmount / conversionRate;
+
+            // Display the converted amount along with the payment method
+            document.getElementById('result').innerHTML = `You will receive: ${ethAmount.toFixed(4)} ETH using ${paymentMethod}. `;
+            document.getElementById('confirm-button').style.display = 'block';
+        });
+    </script>
+    <footer>
+        <p>&copy; 2024 Energy Dashboard</p>
+    </footer>
+</body>
+</html>

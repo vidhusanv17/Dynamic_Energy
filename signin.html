@@ -1,0 +1,139 @@
+<html>
+<head>
+<style>
+  body {
+    background: linear-gradient(to right, #ff60c9, #00a9ff);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .login-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+  }
+
+  nav a {
+    color: #180cb9;
+    text-decoration: none;
+    text-align: right;
+  }
+
+  nav a:hover {
+    color: #bd32c2;
+  }
+
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  .signin-button {
+    background: linear-gradient(to right, #ff60c9, #00a9ff);
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .signin-button:hover {
+    background: linear-gradient(to right, #00a9ff, #ff60c9);
+  }
+
+  /* Added CSS for the popup */
+  #popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to right, #00a9ff, #ff60c9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+
+  #popup-message {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Sign In</h1>
+    <form id="signin-form">
+      <input type="text" placeholder="Username" id="username">
+      <input type="password" placeholder="Password" id="password">
+      <input type="password" placeholder="Confirm Password" id="confirm-password">
+      <button type="submit" class="signin-button">Sign In</button>
+    </form>
+    <div>
+      <nav>
+        <p>or</p>
+        <a href="login.html">Log In</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Popup for successful sign-in -->
+  <div id="popup">
+    <p id="popup-message">Signed in successfully! Redirecting to login page...</p>
+  </div>
+
+  <script>
+    // Get the form and popup elements
+    const signinForm = document.getElementById('signin-form');
+    const popupDiv = document.getElementById('popup');
+
+    // Add an event listener to the form
+    signinForm.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent the form from submitting
+
+      // Validate the inputs (you can add your own validation logic here)
+      const usernameInput = document.getElementById('username').value;
+      const passwordInput = document.getElementById('password').value;
+      const confirmPasswordInput = document.getElementById('confirm-password').value;
+
+      if (usernameInput && passwordInput && passwordInput === confirmPasswordInput) {
+        // Show the popup message
+        popupDiv.style.display = 'block';
+
+        // Redirect to login page after 3 seconds
+        setTimeout(() => {
+          window.location.href = 'login.html'; // Redirect to login page
+        }, 3000); // 3 seconds delay
+      } else {
+        alert('Please ensure all fields are filled correctly and passwords match.');
+      }
+    });
+  </script>
+  
+</body>
+</html>

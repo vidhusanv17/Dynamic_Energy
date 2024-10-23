@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Completion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00a9ff, #ff60c9);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #92e1f5; /* white */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333; /* dark gray */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px; /* medium font size */
+            font-weight: bold; /* bold font weight */
+        }
+
+        input, select, textarea {
+            width: 99%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc; /* light gray border */
+            border-radius: 4px;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, textarea:focus {
+            border: 1px solid #007bff; /* blue border */
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* blue glow */
+        }
+
+        input[type="text"]:valid, input[type="email"]:valid, input[type="tel"]:valid, textarea:valid {
+            color: #007bff; /* blue text */
+        }
+
+        button {
+            background-color: #28a745; /* green */
+            color: #fff; /* white */
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838; /* darker green */
+        }
+
+        /* Add styles for the popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+
+        }
+        footer {
+            text-align: center;
+            
+            padding: 50px;
+        }
+
+        .popup.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Complete Your Profile</h1>
+        
+        <form id="profileForm">
+            <section>
+                <h2>Update Personal Information</h2>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="Anna nagar extn,madipakkam,chennai" required>
+
+                <label for="energySources">Energy Sources:</label>
+                <select id="energySources" name="energySources" required>
+                    <option value="solar">Solar</option>
+                    <option value="wind">Wind</option>
+                    <option value="none">None</option>
+                </select>
+
+                <label for="contactEmail">Email:</label>
+                <input type="email" id="contactEmail" name="contactEmail" placeholder="vidhusan@gmail.com" required>
+
+                <label for="contactPhone">Phone:</label>
+                <input type="tel" id="contactPhone" name="contactPhone" placeholder="+91 12345 12345" required>
+                <span id="phoneError"></span>
+                <span id="emailError"></span>
+            </section>
+
+            <button type="button" id="updateButton">Update</button>
+        </form>
+    </div>
+
+    <!-- Add the popup HTML -->
+    <div class="popup">
+        <h2>Profile Updated Successfully!</h2>
+        <button id="closePopup">Close</button>
+    </div>
+
+    <script>
+        const emailInput = document.getElementById('contactEmail');
+        const phoneInput = document.getElementById('contactPhone');
+        const phoneError = document.getElementById('phoneError');
+        const emailError = document.getElementById('emailError');
+        const updateButton = document.getElementById('updateButton');
+        const popup = document.querySelector('.popup');
+        const closePopupButton = document.getElementById('closePopup');
+
+        function validateEmail(email) {
+            let re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email); 
+        }
+
+        function validatePhoneNumber(phoneNumber) {
+            let re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/; 
+            return re.test(phoneNumber);
+        }
+
+        updateButton.addEventListener('click', () => {
+            const email = emailInput.value;
+            const phoneNumber = phoneInput.value;
+
+            if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailError.style.color = 'red';
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (!validatePhoneNumber(phoneNumber)) {
+                phoneError.textContent = 'Please enter a valid phone number.';
+                phoneError.style.color = 'red';
+            } else {
+                phoneError.textContent = '';
+            }
+
+            if (validateEmail(email) && validatePhoneNumber(phoneNumber)) {
+                // Show the popup
+                popup.classList.add('show');
+            }
+        });
+
+        closePopupButton.addEventListener('click', () => {
+            popup.classList.remove('show');
+        });
+    </script>
+    <footer>
+
+        &copy; copywright Void Breakers
+    </footer>
+</body>
+</html>

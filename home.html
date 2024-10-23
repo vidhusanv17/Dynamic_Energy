@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            margin-top: 50px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-image: url("D:\Projects\pro\DYNAMIC ENERGY\project\static\images\tode.jpeg");
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        header {
+    background: linear-gradient(to right, #d94aec, #00a9ff); /* Original gradient */
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    transition: background 0.3s ease; /* Smooth transition for background changes */
+}
+        .header-left {
+            font-size: 24px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .header-right a {
+            margin-right: 20px;
+            font-size: 24px;
+            font-weight: 300;
+        }
+        .post {
+            background-color: #fff;
+            padding: 1em;
+            margin: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            text-align: right;
+            font-weight: 400;
+        }
+        nav li {
+            margin-right: 20px;
+            text-align: right;
+            font-weight: 400;
+        }
+        nav a {
+            color: #060144;
+            text-decoration: none;
+            text-align: right;
+            font-size: 24px;
+            font-weight: 400;
+        }
+        nav a:hover {
+            color: #0079ca;
+        }
+        section {
+            height: 100vh;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        #hero .profile-img {
+            width: 300px;
+            border-radius: 50%;
+        }
+        footer {
+            text-align: center;
+            padding: 50px;
+        }
+        #hero h1 {
+            font-size: 3em;
+        }
+        section h2 {
+            font-size: 2.5em;
+        }
+        section h3 {
+            font-size: 1.5em;
+        }
+        #hero {
+            background-image: linear-gradient(rgba(30, 47, 199, 0.75), rgba(197, 22, 22, 0.75)), url('logo.jpeg');
+        }
+        nav {
+            margin-right: 0;
+        }
+        .hero img {
+            width: 100%;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        section {
+    height: 100vh;
+    border: 1px solid white; /* Change this line to set the border color to white */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <!--header>{"this is a header"}-->
+    <header>
+        <h1>Dynamic Energy Optimization System</h1>
+        <nav>
+            <ul>
+                <li><a href="credit.html">Ethereum credit</a></li>
+                <li><a href="transfer.html">Ethereum debit</a></li>
+                <li><a href="details.html">User  Details</a></li>
+                <li><a href="dashboard.html">DashBoard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <img src="D:\Projects\pro\DYNAMIC ENERGY\project\static\images\home.jpg" >
+        </section>
+        <section id="about">
+            <div class="post">
+                <h2>Welcome To Future Of Energy Sharing</h2>
+                <p>Join us in transforming the way communities manage and share energy. Our platform enables real-time sharing of excess renewable energy, such as solar and wind, among neighbors through advanced AI and IoT technology.This innovative approach not only optimizes energy usage but also fosters a sense of community while reducing reliance on traditional power sources.
+
+                    With our blockchain-based energy trading system, you can earn tokens for sharing your surplus energy and save on utility bills. This secure, decentralized method ensures transparency in every transaction, making energy sharing simple and rewarding for everyone involved.
+                    
+                    Embrace a sustainable and smart future by reducing energy waste and lowering your carbon footprint. Our community-driven energy grid empowers homes to work together, maximizing the use of renewable resources and minimizing environmental impact.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        &copy; copywright Void Breakers
+    </footer>
+    <script>
+        window.addEventListener('scroll', function() {
+            const heroImage = document.querySelector('.hero img');
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            const newOpacity = 1 - (scrollPosition / windowHeight);
+            heroImage.style.opacity = Math.max(newOpacity, 0);
+        });
+    </script>
+</body>
+</html>

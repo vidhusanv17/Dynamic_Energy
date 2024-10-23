@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Dashboard</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        section {
+            background-color: #f7f7f7;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            clear: both;
+        }
+        
+        #chart_div, #chart_div2, #chart_div3 {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+    <script type="text/javascript">
+    // Load the Google Charts library
+    google.charts.load('current', {'packages':['corechart']});
+    
+    // Prepare data for the first chart
+    function prepareData() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', 'Production');
+        data.addColumn('number', 'Consumption');
+        data.addColumn('number', 'Surplus');
+        
+        data.addRows([
+            ['2020', 1000, 800, 200],
+            ['2021', 1100, 850, 250],
+            ['2022', 1200, 900, 300],
+            ['2023', 1300, 950, 350],
+            ['2024', 1400, 1000, 400]
+        ]);
+        
+        return data;
+    }
+    
+    // Prepare data for the second chart
+    function prepareData2() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Number');
+        data.addColumn('number', 'Solar Panels');
+        data.addColumn('number', 'Windmills');
+        
+        data.addRows([
+            [1, 300, 200],
+            [2, 400, 250],
+            [3, 500, 300],
+            [4, 600, 350],
+            [5, 700, 400]
+        ]);
+        
+        return data;
+    }
+
+    // Prepare data for the savings chart with fluctuations
+    function prepareSavingsData() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', 'Savings ($)');
+        
+        var savingsPerKWh = 0.10; // $0.10 per kWh saved
+        var baseSavings = [
+            (1000 - 800) * savingsPerKWh,
+            (1100 - 850) * savingsPerKWh,
+            (1200 - 900) * savingsPerKWh,
+            (1300 - 950) * savingsPerKWh,
+            (1400 - 1000) * savingsPerKWh
+        ];
+        
+        // Introduce random fluctuations
+        var fluctuationRange = 50; // Max fluctuation amount
+        var rows = baseSavings.map((savings, index) => {
+            var fluctuation = Math.floor(Math.random() * (fluctuationRange * 2)) - fluctuationRange;
+            return [String(2023 + index), savings + fluctuation];
+        });
+        
+        data.addRows(rows);
+        
+        return data;
+    }
+    
+    // Draw the first chart
+    function drawChart() {
+        var data = prepareData();
+        var options = {
+            title: 'Energy Production, Consumption, and Surplus Over Time',
+            hAxis: {title: 'Year'},
+            vAxis: {title: 'Energy (kWh)'},
+            series: {
+                0: {color: '#1b9e77'}, // Production color
+                1: {color: '#d95f02'}, // Consumption color
+                2: {color: '#7570b3'}  // Surplus color
+            }
+        };
+        
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    
+    // Draw the second chart
+    function drawChart2() {
+        var data = prepareData2();
+        var options = {
+            title: 'Power Generation by Source',
+            hAxis: {title: 'Number'},
+            vAxis: {title: 'Power (kW)'},
+            series: {
+                0: {color: '#e377c2'}, // New color for Solar Panels
+                1: {color: '#17becf'}   // New color for Windmills
+            }
+        };
+        
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+    }
+    
+    // Draw the savings chart
+    function drawSavingsChart() {
+        var data = prepareSavingsData();
+        var options = {
+            title: 'Predicted Savings ',
+            hAxis: {title: 'Year'},
+            vAxis: {title: 'Savings ($)'},
+            series: {
+                0: {color: '#66d9ef'} // Savings color
+            }
+        };
+        
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+    }
+    
+    // Call the drawChart functions after the Google Charts library has loaded
+    google.charts.setOnLoadCallback(function() {
+        console.log('Google Charts library loaded');
+        drawChart();
+        drawChart2();
+        drawSavingsChart();
+    });
+</script>
+</head>
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Energy Dashboard</h1>
+    </header>
+    
+    <!-- Main content section -->
+    <main>
+        <section>
+            <h2>Energy Stats</h2>
+            <table>
+                <tr>
+                    <th scope="col">Production</th>
+                    <td>1000 kWh</td>
+                </tr>
+                <tr>
+                    <th scope="col">Consumption</th>
+                    <td>800 kWh</td>
+                </tr>
+                <tr>
+                    <th scope="col">Surplus</th>
+                    <td>200 kWh</td>
+                </tr>
+            </table>
+        </section>
+        <div id="chart_div"></div>
+        <div id="chart_div2"></div>
+        <div id="chart_div3"></div>
+    </main>
+    
+    <!-- Footer section -->
+    <footer>
+        <p>&copy; 2024 Energy Dashboard</p>
+    </footer>
+</body>
+</html>

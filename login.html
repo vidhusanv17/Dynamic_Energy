@@ -1,0 +1,157 @@
+<html>
+<head>
+<style>
+  /* Your existing CSS styles */
+  body {
+    background: linear-gradient(to right, #ff60c9, #00a9ff);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .login-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+  }
+
+  nav a{
+    color: #180cb9;
+    text-decoration: none;
+    text-align: right;
+  }
+
+  nav a:hover {
+    color: #bd32c2;
+  }
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  .login-button {
+    background: linear-gradient(to right, #ff60c9, #00a9ff);
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .login-button:hover {
+    background: linear-gradient(to right, #00a9ff, #ff60c9);
+  }
+
+  .social-login {
+    margin-top: 20px;
+  }
+
+  .social-login button {
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+  }
+
+  .social-login button img {
+    border: none;
+    width: 24px;
+    height: 24px;
+  }
+
+  .social-login button i {
+    margin-right: 10px;
+  }
+
+  /* Added CSS for the popup */
+  #popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to right, #00a9ff, #ff60c9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+
+  #popup-message {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form action="/login" method="POST" id="login-form">
+      <input type="text" placeholder="Username" id="username">
+      <input type="password" placeholder="Password" id="password">
+      <button class="login-button" id="login-btn">Login</button>
+    </form>
+    <div class="social-login">
+      <button><img src="D:\Projects\pro\DYNAMIC ENERGY\project\static\images\google.jpg" alt="Google"></button>
+      <button><img src="D:\Projects\pro\DYNAMIC ENERGY\project\static\images\facebook.png" alt="Facebook"></button>
+      <button><img src="D:\Projects\pro\DYNAMIC ENERGY\project\static\images\Twitter.svg" alt="Twitter"></button>
+    </div>
+    <div>
+        <nav>
+            <p>or</p>
+                <a href="signin.html">Sign Up</a>
+        </nav>
+    </div>
+  </div>
+
+  <!-- Add a div to display the popup message -->
+  <div id="popup">
+    <p id="popup-message">Logged in successfully!</p>
+  </div>
+
+  <script>
+    // Get the login button and form elements
+    const loginBtn = document.getElementById('login-btn');
+    const loginForm = document.getElementById('login-form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const popupDiv = document.getElementById('popup');
+
+    // Add an event listener to the login button
+    loginBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent the form from submitting
+
+      // Validate the username and password (you can add your own validation logic here)
+      if (usernameInput.value === "vidhu" && passwordInput.value === "17") {
+        // Redirect to home.html
+        window.location.href = 'home.html';
+      } else {
+        alert('Invalid username or password');
+      }
+    });
+  </script>
+  
+</body>
+</html>

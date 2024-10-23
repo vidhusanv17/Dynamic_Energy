@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #000000;
+    background-color: #f9f9f9;
+
+}
+
+header {
+    background: linear-gradient(to right, #7060ff, #00a9ff); /* Set a background color */
+    padding: 20px; /* Adjust padding as needed */
+    position: fixed; /* Keep the header fixed */
+    top: 0; /* Position it at the top */
+    width: 100%; /* Full width of the viewport */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: add a shadow for depth */
+    z-index: 1000; /* Ensure it's on top of other content */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Align header content to the left and right */
+}
+
+.header-left {
+    font-size: 24px; /* Increase font size */
+}
+
+.header-right {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center text vertically */
+    justify-content: flex-end; /* Align navigation to the right */
+}
+
+.header-right a {
+    margin-right: 20px; /* Space between text and navigation */
+    font-size: 24px; /* Increase font size */
+    font-weight: 300;
+}
+
+nav ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox for horizontal layout */
+    text-align: right;
+    font-weight: 400;
+}
+
+nav li {
+    margin-right: 20px;
+    text-align: right;
+    font-weight: 400;
+}
+
+nav a {
+    color: #060144;
+    text-decoration: none;
+    text-align: right;
+    font-size: 24px; /* Increase font size */
+    font-weight: 400;
+}
+
+nav a:hover {
+    color: #0079ca;
+}
+
+
+.hero {
+    background-color: #333;
+    color: #fff;
+    padding: 2em;
+    text-align: center;
+}
+
+.hero img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.post {
+    background-color: #fff;
+    padding: 1em;
+    margin: 20px;
+}
+
+.post h2 {
+    margin-top: 0;
+}
+
+.post .category {
+    font-size: 0.8em;
+    color: #666;
+}
+
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+    clear: both;
+}

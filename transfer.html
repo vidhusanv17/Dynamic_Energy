@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum to INR Converter and User Account Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00698f;
+            margin-bottom: 20px;
+        }
+
+        #converter-form, #user-details-form {
+            margin: 20px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,  0,  0, 0.2);
+            background-color: #fff;
+            transition: transform 0.2s;
+        }
+
+        #converter-form:hover, #user-details-form:hover {
+            transform: scale(1.02);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00698f;
+            outline: none;
+        }
+
+        button {
+            background-color: #00698f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #004f6d;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00698f;
+        }
+
+        #user-account-details {
+            margin-top: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e0f7fa;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Popup styles */
+        #popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        #popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Error message styles */
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <h1>Ethereum to INR Converter and User Account Details</h1>
+
+    <form id="converter-form">
+        <label for="eth-amount">Enter Ethereum amount:</label>
+        <input type="text" id="eth-amount" name="eth-amount" required>
+        <button type="submit">Convert to INR</button>
+    </form>
+    
+    <div id="result"></div>
+
+    <form id="user-details-form">
+        <h2>Enter User Account Details:</h2>
+        <label for="account-name">Account Name:</label>
+        <input type="text" id="account-name" name="account-name" required>
+        <label for="account-number">Account Number:</label>
+        <input type="text" id="account-number" name="account-number" required>
+        <input type ="text" id="ifsc-code" name="ifsc-code" required placeholder="IFSC Code">
+        <button type="submit">Confirm Transaction</button>
+        <div id="error-message">Please enter Ethereum amount!</div>
+    </form>
+
+    <div id="balance-result"></div>
+
+    <!-- Added user account list -->
+    <ul id="user-account-list"></ul>
+
+    <!-- Popup element -->
+    <div id="popup">
+        <h2>Transaction Successful!</h2>
+        <button id="close-popup">Close</button>
+    </div>
+
+    <!-- Overlay element -->
+    <div id="popup-overlay"></div>
+
+    <script>
+        const converterForm = document.getElementById('converter-form');
+        const resultDiv = document.getElementById('result');
+        const userDetailsForm = document.getElementById('user-details-form');
+        const userAccountList = document.getElementById('user-account-list');
+        const errorMessage = document.getElementById('error-message');
+        const popup = document.getElementById('popup');
+        const popupOverlay = document.getElementById('popup-overlay');
+
+        // Convert Ethereum to INR
+        converterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const ethAmount = parseFloat(document.getElementById('eth-amount').value);
+            const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr';
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const inrAmount = ethAmount * data.ethereum.inr;
+                    resultDiv.innerText = `₹ ${inrAmount.toFixed(2)}`;
+                })
+                .catch(error => console.error(error));
+        });
+
+        // Handle user account details submission
+        userDetailsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Check if Ethereum amount field is filled
+            if (document.getElementById('eth-amount').value === '') {
+                // Display the error message
+                errorMessage.style.display = 'block';
+            } else {
+                const accountName = document.getElementById('account-name').value;
+                const accountNumber = document.getElementById('account-number').value;
+                const ifscCode = document.getElementById('ifsc-code').value;
+
+                // Display user account details
+                const userDetailItem = `<li>Account Name: ${accountName}, Account Number: ${accountNumber}, IFSC Code: ${ifscCode}</li>`;
+                userAccountList.innerHTML += userDetailItem;
+
+                // Clear input fields
+                userDetailsForm.reset();
+
+                // Show the popup
+                popup.style.display = 'block';
+                popupOverlay.style.display = 'block';
+            }
+        });
+
+        // Add event listener to the close button
+        document.getElementById('close-popup').addEventListener('click', () => {
+            popup.style.display = 'none';
+            popupOverlay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
