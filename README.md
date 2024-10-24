@@ -25,12 +25,12 @@
 - **Solidity**: For writing blockchain smart contracts.
 
 ### Frameworks
-- **TensorFlow / PyTorch**: For building and training AI models.
+- **TensorFlow**: For building and training AI models.
 - **React.js**: For creating the user interface.
-- **Node.js / Express**: For back-end API development.
+- **Node.js**: For back-end API development.
 
 ### Blockchain
-- **Ethereum / Hyperledger**: For secure and decentralized energy token transactions.
+- **Ethereum**: For secure and decentralized energy token transactions.
 
 ### IoT and Hardware
 - **Smart Meters**: For real-time energy monitoring.
@@ -46,38 +46,34 @@
 
 ### 1. Clone the Repository
 ```
-git clone https://github.com/your-username/PowerX.git
+git clone https://github.com/vidhusanv17/PowerX.git
 cd PowerX
 ```
 
 ### 2. Install Dependencies
 Ensure you have **Python 3.x**, **Node.js**, and **npm** installed. Then, run:
 ```
-pip install -r requirements.txt     # For Python dependencies (AI, data analysis)
-npm install                         # For Node.js dependencies (API, front-end)
+pip install -r requirements.txt     
+npm install                        
 ```
 
 ### 3. Blockchain Setup
-If using Ethereum, install **Truffle** for managing smart contracts:
+Since using Ethereum, install **Truffle** for managing smart contracts:
 ```
 npm install -g truffle
 truffle init
 ```
 Deploy the smart contract by running:
 ```
-truffle migrate --network your_network
+truffle migrate 
 ```
 
 ### 4. Run the Application
-To start the back-end and front-end services:
-```
-npm run start-backend      # Starts Node.js back-end server
-npm run start-frontend     # Starts React front-end UI
-```
+To start the application just run 
+**app.py**
 
 ### 5. IoT and Smart Meter Setup
 - Connect the **smart meter hardware** (Raspberry Pi / Arduino) to monitor energy consumption and production.
-- Use **MQTT** or any messaging protocol to send data to the back-end in real-time.
 
 ---
 
@@ -133,6 +129,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or feedback, feel free to reach out:
 
-- **Email**: youremail@example.com
-- **GitHub**: [https://github.com/your-username](https://github.com/your-username)
+- **Email**: vidhusan17@example.com
+- **GitHub**: [https://github.com/vidhusanv17](https://github.com/vidhuanv17)
 
